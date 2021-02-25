@@ -4,5 +4,5 @@
 class StaticChar:public GameCharacter {
 public:
 	StaticChar(int x, int y, Sprite shape) :GameCharacter(x, y, shape) {}
-	//virtual ~StaticChar() = 0 {}
+	virtual ~StaticChar() = 0 {}
 };

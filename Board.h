@@ -19,17 +19,15 @@ class Player;
 class RandomEnemy;
 class DumbEnemy;
 class SmartEnemy;
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 const int SHAPE_SIZE = 70;
 using std::ifstream;
-//======================================================
-
 
 class Board {
 public:
 	//read one stage's from a file of chars and set by that the real object in the static objects or moving objects
-	void setBoard(ifstream&, int);
-//======================================================
+	void setBoard(ifstream&, int, const ObjectsShapes&);
+
 	//all these functions get global bouds (rectangle) and return if 
 	//there is an overlapping in this bounds with spesific type
 	bool isPlayer(const FloatRect&) const;
@@ -37,7 +35,7 @@ public:
 	bool isWall(const FloatRect&) const;
 	sf::Vector2f isLadder(const FloatRect&) const;
 	sf::Vector2f isRob(const FloatRect&) const;
-//======================================================
+
 	//if there is any gift in the given global bounds then
 	//manage it like that:
 	//if it's bad gift then the board will add one enemy to the m_movingChar vector and return NULL
@@ -45,7 +43,7 @@ public:
 	//the one who call this function can use it and then call the giftTaken() function
 	Gift* getGift(const FloatRect&);
 	void giftTaken();
-//======================================================
+	
 	//reset the board to the start condition by the char board
 	void reset();
 
@@ -66,7 +64,7 @@ public:
 	//return if the player is completely dead and has no life left
 	bool playerDead();
 
-	sf::Vector2u getSize();
+	sf::Vector2f getSize();
 private:
 
 	//set start data by the char board input
@@ -95,5 +93,5 @@ private:
 
 	bool m_playerDead;
 
-	sf::Vector2u m_boardSize;
+	sf::Vector2f m_boardSize;
 };

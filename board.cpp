@@ -3,9 +3,8 @@
 #include "RandomEnemy.h"
 #include "SmartEnemy.h"
 #include "Player.h"
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-void Board::setBoard(ifstream& fileStream, int n)
+
+void Board::setBoard(ifstream& fileStream, int n, const ObjectsShapes& objectsShapes)
 {
 	auto line = std::string();
 	for (int i = 0;i < n;i++)
@@ -13,9 +12,9 @@ void Board::setBoard(ifstream& fileStream, int n)
 		std::getline(fileStream, line);
 		m_charBoard.push_back(line);
 	}
+	m_objectsShapes = objectsShapes;
 	setStartData();
 }
-//==============================================================
 void Board::setStartData()
 {
 	for (int i = 0;size_t(i) < m_charBoard.size();i++)
@@ -25,7 +24,6 @@ void Board::setStartData()
 	m_boardSize.x = m_charBoard.size() * SHAPE_SIZE;
 	m_boardSize.y = m_charBoard.size() * SHAPE_SIZE;
 }
-//==============================================================
 void Board::setOneObject(int row, int col)
 {
 	int x = col, y = row;
@@ -63,12 +61,10 @@ void Board::setOneObject(int row, int col)
 		break;
 	}
 }
-//==============================================================
 bool Board::isPlayer(const FloatRect& otherGlobalBounds) const
 {
 	return m_player->getBounds().intersects(otherGlobalBounds);
 }
-//==============================================================
 bool Board::isEnemy(const FloatRect& otherGlobalBounds) const
 {
 	int n = m_enemies.size();
@@ -77,7 +73,6 @@ bool Board::isEnemy(const FloatRect& otherGlobalBounds) const
 				return true;
 	return false;
 }
-//==============================================================
 bool Board::isWall(const FloatRect& otherGlobalBounds) const
 {
 	if (otherGlobalBounds.left < 0 || otherGlobalBounds.top < 0
@@ -90,7 +85,6 @@ bool Board::isWall(const FloatRect& otherGlobalBounds) const
 			return true;
 	return false;
 }
-//==============================================================
 sf::Vector2f Board::isLadder(const FloatRect& otherGlobalBounds) const
 {
 	int n = m_ladders.size();
@@ -100,7 +94,6 @@ sf::Vector2f Board::isLadder(const FloatRect& otherGlobalBounds) const
 			return Vector2f(temp.width, temp.height);
 	return Vector2f(0, 0);
 }
-//==============================================================
 sf::Vector2f Board::isRob(const FloatRect& otherGlobalBounds) const
 {
 	int n = m_robs.size();
@@ -110,7 +103,6 @@ sf::Vector2f Board::isRob(const FloatRect& otherGlobalBounds) const
 			return Vector2f(temp.width, temp.height);
 	return Vector2f(0, 0);
 }
-//==============================================================
 Gift* Board::getGift(const FloatRect& otherGlobalBounds)
 {
 	int n = m_gifts.size(), i;
@@ -137,14 +129,12 @@ Gift* Board::getGift(const FloatRect& otherGlobalBounds)
 	//other gifts are returned to take what they can give
 	return m_gifts[i];
 }
-//==============================================================
 void Board::giftTaken()
 {
 	//delete the gift in the index m_indx
 	delete m_gifts[m_indx];
 	m_gifts.erase(m_gifts.begin() + m_indx);
 }
-//==============================================================
 void Board::draw(sf::RenderWindow& window) const
 {
 	//draw the walls
@@ -176,13 +166,11 @@ void Board::draw(sf::RenderWindow& window) const
 		m_enemies[i]->draw(window);
 
 }
-//==============================================================
 void Board::reset()
 {
 	clear();
 	setStartData();
 }
-//==============================================================
 void Board::clear()
 {
 	//clear the non-pointers vectors
@@ -206,19 +194,16 @@ void Board::clear()
 		delete m_enemies[i];
 	m_enemies.clear();
 }
-//==============================================================
 void Board::moveObjects()
 {
 	m_player->move(*this);
 	for (int i = 0;i < m_enemies.size();i++)
 		m_enemies[i]->move(*this);
 }
-//==============================================================
 bool Board::allGiftsTaken()
 {
 	return !m_gifts.size();
 }
-//==============================================================
 void Board::death()
 {
 	m_player->setLife(m_player->getLife() - 1);
@@ -227,19 +212,14 @@ void Board::death()
 	clear();
 	reset();
 }
-//==============================================================
 bool Board::playerDead()
 {
 	return m_player->getLife();
 }
-//==============================================================
-Vector2f Board::playerLoc()
-{
+Vector2f Board::playerLoc() {
 	return m_player->getLocation();
 }
-//==============================================================
-sf::Vector2u Board::getSize()
+sf::Vector2f Board::getSize()
 {
 	return m_boardSize;
 }
-//==============================================================

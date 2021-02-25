@@ -4,12 +4,12 @@ using sf::Texture;
 
 struct ObjectsShapes {
 	ObjectsShapes(){
-		m_player.loadFromFile("/Users/meirbenin/Desktop/test/test/player.png");
-		m_ladder.loadFromFile("/Users/meirbenin/Desktop/test/test/ladder.png");
-		m_enemy.loadFromFile("/Users/meirbenin/Desktop/test/test/enemy.png");
-		m_gift.loadFromFile("/Users/meirbenin/Desktop/test/test/gift.png");
-		m_wall.loadFromFile("/Users/meirbenin/Desktop/test/test/wall.png");
-		m_rob.loadFromFile("/Users/meirbenin/Desktop/test/test/rob.png");
+		m_player.loadFromFile("player.png");
+		m_ladder.loadFromFile("ladder.png");
+		m_enemy.loadFromFile("enemy.png");
+		m_gift.loadFromFile("gift.png");
+		m_wall.loadFromFile("wall.png");
+		m_rob.loadFromFile("rob.png");
 	}
 	Texture
 		m_player,
