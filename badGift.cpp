@@ -2,7 +2,7 @@
 #include "DumbEnemy.h"
 #include "RandomEnemy.h"
 #include "SmartEnemy.h"
-
+//++++++++++++++++++++++++++++++
 BadGift::BadGift(int x,int y, Sprite shape, Sprite enemyShape)
 	:Gift(x,y, shape),m_enemyShape(enemyShape)
 {
