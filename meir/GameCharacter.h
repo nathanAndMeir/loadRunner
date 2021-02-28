@@ -19,7 +19,6 @@ public:
 	//which is a rectangle
 	FloatRect getBounds() const;
 
-	virtual ~GameCharacter() = 0 {}
 protected:
 	//shape of the object
 	Sprite m_shape;

@@ -1,11 +1,7 @@
 #pragma once
 #include "MovingChar.h"
 #include "Direction.h"
-
-
-
-
-
+//+++++++++++++++++++++++++++++++++++++++++++++++++
 class Player : public MovingChar {
 public:
     Player(int x, int y, Sprite shape, int life);
@@ -17,7 +13,7 @@ public:
 private:
     int m_life;
     int m_points;
-    Direction_t getDirection() override;
+    Direction getDirection() override;
     void giftOrDeath(Board&)  override;
     void FailedMove()override;
 };

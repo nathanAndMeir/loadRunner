@@ -1,20 +1,12 @@
-//
-//  MovingChar.cpp
-//  loadRunner
-//
-//  Created by meir benin on 18/02/2021.
-//  Copyright © 2021 meir benin. All rights reserved.
-//
 
 #include "MovingChar.h"
-
 //======================================================
 
 void MovingChar::move(Board& board) {
     if (isFall(board))
         return;
-    Direction_t direction = getDirection();
-    if (direction == NON_D)
+    Direction direction = getDirection();
+    if (direction == NON)
         return;
     if (isLegalMove(direction, board)) {
         moveShape(direction);
@@ -25,25 +17,28 @@ void MovingChar::move(Board& board) {
 }
 
 //------------------------------------------------------------------
-bool MovingChar::isLegalMove(Direction_t dirction, Board& board)const
+bool MovingChar::isLegalMove(Direction dirction, Board& board)const
 {
     auto tempRect = m_shape.getGlobalBounds();
     switch (dirction)
     {
-    case UP_D:
+    case UP:
         tempRect.top -= MOVE_LENGTH;
         if (board.isLadder(m_shape.getGlobalBounds()).x == m_shape.getGlobalBounds().width &&
             !board.isWall(tempRect))
             return true;
         return false;
-    case DWON_D:
+    case DWON:
         tempRect.top += MOVE_LENGTH;
         if (!board.isWall(tempRect))
             return true;
         return false;
-    case RIGHT_D:
-    case LEFT_D:
-        tempRect.left += dirction == RIGHT_D ? MOVE_LENGTH : -MOVE_LENGTH;
+    case RIGHT:
+            tempRect.left += MOVE_LENGTH;
+            if (board.isWall(tempRect))
+                return false;
+    case LEFT:
+        tempRect.left -= MOVE_LENGTH;
         if (board.isWall(tempRect))
             return false;
         return true;
@@ -59,25 +54,25 @@ bool MovingChar::isFall(Board& board) {
     if (!board.isWall(tempRect) && board.isLadder(tempRect).y == 0 &&
         board.isRob(m_shape.getGlobalBounds()).y != m_shape.getGlobalBounds().height)
     {
-        moveShape(DWON_D);
+        moveShape(DWON);
         return true;
     }
     return false;
 }
 //==============================================
-void MovingChar::moveShape(Direction_t direction) {
+void MovingChar::moveShape(Direction direction) {
 
     switch (direction) {
-    case UP_D:
+    case UP:
         m_shape.move(0, -MOVE_LENGTH);
         break;
-    case DWON_D:
+    case DWON:
         m_shape.move(0, MOVE_LENGTH);
         break;
-    case RIGHT_D:
+    case RIGHT:
         m_shape.move(MOVE_LENGTH, 0);
         break;
-    case LEFT_D:
+    case LEFT:
         m_shape.move(-MOVE_LENGTH, 0);
         break;
     }
