@@ -2,10 +2,7 @@
 #include "GameCharacter.h"
 #include "Direction.h"
 #include "Board.h"
-//=========================================================
-
-//=========================================================
-
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++
 class MovingChar :public  GameCharacter {
 public:
     MovingChar(int x, int y, Sprite shape) : GameCharacter(x, y, shape) {}

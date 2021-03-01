@@ -1,11 +1,3 @@
-//
-//  RandomEnemy.cpp
-//  loadRunner
-//
-//  Created by meir benin on 20/02/2021.
-//  Copyright � 2021 meir benin. All rights reserved.
-//
-
 #include "RandomEnemy.h"
 //=============================================================
 RandomEnemy::RandomEnemy(int x, int y, Sprite shape) : Enemy(x, y, shape) {

@@ -8,6 +8,6 @@ public:
 private:
     Direction m_direction;
 //++++++++++++++++++++++
-    Direction getDirection() override;
+    Direction getDirection() override ;
     void FailedMove()override;
 };

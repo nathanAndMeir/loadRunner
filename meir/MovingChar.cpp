@@ -1,7 +1,6 @@
 
 #include "MovingChar.h"
 //======================================================
-
 void MovingChar::move(Board& board) {
     if (isFall(board))
         return;
@@ -15,7 +14,6 @@ void MovingChar::move(Board& board) {
     else
         FailedMove();
 }
-
 //------------------------------------------------------------------
 bool MovingChar::isLegalMove(Direction dirction, Board& board)const
 {
